@@ -1,5 +1,4 @@
 import pandas as pd
-import json
 import numpy as np
 import advertools as adv
 import nltk
@@ -10,17 +9,8 @@ import matplotlib.pyplot as plt
 from PIL import Image
 from stop_words import get_stop_words
 
-f = open('../data/paginaSiete.json')
-data = json.load(f)
 
-title = []
-for i in range(len(data)):
-    for r in data[i]["titulo"]:
-        title.append(r)
-
-df = pd.DataFrame(title, columns=['title'])
-df.to_csv('../data/paginaSiete_title.csv', index=False)
-
+"""
 g = open('../data/stopWordList.json')
 my_long_list = json.load(g)
 
@@ -51,4 +41,4 @@ plt.imshow(wc, cmap=plt.cm.gray, interpolation='bilinear',alpha=1)
 plt.axis('off')
 wc.to_file('../output/paginaSiete_stycloud_papercolor.png')
 plt.show()
-
+"""
