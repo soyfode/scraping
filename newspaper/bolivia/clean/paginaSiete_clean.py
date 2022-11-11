@@ -31,3 +31,6 @@ df['fecha'] = pd.to_datetime(df['fecha'], format='%d %m %Y')
 
 # exportar df a csv
 df.to_csv('../data/paginaSiete.csv', index=False)
+
+# exportar df['titulo'] a csv
+df['titulo'].to_csv('../data/paginaSiete_titulo.csv', index=False)

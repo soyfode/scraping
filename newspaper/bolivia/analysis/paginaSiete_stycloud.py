@@ -1,18 +1,19 @@
 import pandas as pd
 import numpy as np
-import advertools as adv
+import json
 import nltk
 from nltk.corpus import stopwords
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 import stylecloud
 import matplotlib.pyplot as plt
-from PIL import Image
 from stop_words import get_stop_words
+from PIL import Image
 
+word = open('../data/stopWordList.json')
+my_long_list = json.load(word)
 
-"""
-g = open('../data/stopWordList.json')
-my_long_list = json.load(g)
+with open("../data/paginaSiete_titulo.txt", "r") as csv_file:
+    text = csv_file.read()
 
 palabras = get_stop_words('spanish')
 
@@ -30,8 +31,6 @@ wc = WordCloud(
                contour_color='#F5F2E8', # color del contorno de la imagen
                stopwords=palabras,
                )
-with open("../data/paginaSiete_title.csv", "r") as csv_file:
-    text = csv_file.read()
 
 wc.generate(text)
 image_colors = ImageColorGenerator(my_mask)
@@ -41,4 +40,3 @@ plt.imshow(wc, cmap=plt.cm.gray, interpolation='bilinear',alpha=1)
 plt.axis('off')
 wc.to_file('../output/paginaSiete_stycloud_papercolor.png')
 plt.show()
-"""
