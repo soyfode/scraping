@@ -27,7 +27,7 @@ class paginaSiete(CrawlSpider):
     download_delay = 1
 
     start_urls = [
-            'https://www.paginasiete.bo/archivo/-/search/%5E/false/false/19700101/20221104/date/false/false/c2VjdGlvbk5hbWU6MMKnODBjMWViODktYTdmZC00M2EwLThhOTQtZmYwOTQ5Njg2MmQwKg%3D%3D/0/meta/0/13431522-106982-8969384-107102-106974-106980-106990-106992-265456-234764-13433769-106986-106978-106976-106988-235476-229328-106984-3665695-11675327-229325/0/' + str(i) for i in range(1,4316)
+            'https://www.paginasiete.bo/archivo/-/search/%5E/false/false/19700101/20221104/date/false/false/c2VjdGlvbk5hbWU6MMKnODBjMWViODktYTdmZC00M2EwLThhOTQtZmYwOTQ5Njg2MmQwKg%3D%3D/0/meta/0/13431522-106982-8969384-107102-106974-106980-106990-106992-265456-234764-13433769-106986-106978-106976-106988-235476-229328-106984-3665695-11675327-229325/0/' + str(i) for i in range(1,4)
             ]
 
     rules = (
@@ -80,7 +80,7 @@ class paginaSiete(CrawlSpider):
 
 process = CrawlerProcess({
     'FEED_FORMAT': 'json',         # formato del archivo generado
-    'FEED_URI': '../data/paginaSiete_prueba.json',  # nombre del archivo generado
+    'FEED_URI': '../data/prueba.json',  # nombre del archivo generado
     'FEED_EXPORT_ENCODING': 'utf-8'
     })
 process.crawl(paginaSiete)

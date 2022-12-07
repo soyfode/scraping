@@ -6,6 +6,7 @@ from selenium.webdriver.chrome.options import  Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.action_chains import ActionChains
 from time import sleep
 import random
 import json
@@ -19,6 +20,28 @@ driver = webdriver.Chrome('../chorome_driver/chromedriver.exe',chrome_options=op
 driver.get('https://www.emol.com/nacional')
 sleep(random.uniform(2.0, 3.0))
 
+def scroll_to_bottom(driver):
+    old_position = 0
+    new_position = None
+    while new_position != old_position:
+        # Get old scroll position
+        old_position = driver.execute_script(
+                ("return (window.pageYOffset !== undefined) ?"
+                 " window.pageYOffset : (document.documentElement ||"
+                 " document.body.parentNode || document.body);"))
+        # Sleep and Scroll
+        sleep(random.uniform(1.0, 2.0))
+        driver.execute_script((
+                "var scrollingElement = (document.scrollingElement ||"
+                " document.body);scrollingElement.scrollTop ="
+                " scrollingElement.scrollHeight;"))
+        # Get new position
+        new_position = driver.execute_script(
+                ("return (window.pageYOffset !== undefined) ?"
+                 " window.pageYOffset : (document.documentElement ||"
+                 " document.body.parentNode || document.body);"))
+
+
 while True:
     nacional = driver.find_elements('xpath','//div[@id="listNews"]/div/h3/a')
     fecha = driver.find_elements('xpath','//div[@id="listNews"]/div/span/span')
@@ -26,24 +49,20 @@ while True:
     for n,f in zip(nacional,fecha):
         noticia = n.text
         fecha = f.text
-        #noticia = p.find_element('xpath','./div/h3/a').text
-        #fecha = p.find_element('xpath','./div/span/span').text
-        # aggregate data into a dictionary and save to json file
         data = {'titular': noticia, 'fecha': fecha}
-        with open('../data/prueba.json', 'a') as f:
+        with open('../data/elMercurio.json', 'a') as f:
             json.dump(data, f, ensure_ascii=False)
             f.write(',\n')
-        print(noticia)
-        print(fecha)
-    sleep(random.uniform(2.0, 3.0))
     try:
+        sleep(random.uniform(0.7, 1))
         boton=WebDriverWait(driver, 10).until(
                 EC.presence_of_element_located((By.XPATH, '//*[@id="li_next"]/a'))
                 )
         boton.click()
         WebDriverWait(driver, 10).until(
-                EC.presence_of_all_elements_located((By.XPATH, '//*[@id="listNews"]/div/div[1]/a/img'))
+                EC.presence_of_all_elements_located((By.XPATH, '//div[@id="listNews"]/div'))
             )
+        sleep(random.uniform(2, 2.3))
     except:
         break
 
